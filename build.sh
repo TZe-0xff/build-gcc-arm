@@ -143,6 +143,20 @@ fi
 
 export PATH=${BOOTSTRAP}/bin:$PATH
 
+
+
+if [ -n "$PYTHON_VERSION" ]; then
+  mkdir -p ${BUILD}/python && pushd ${BUILD}/python
+  ${SOURCE}/Python-${PYTHON_VERSION}/configure \
+    --host=${HOST}                       \
+    --build=x86_64-pc-linux-gnu          \
+    --disable-test-modules               \
+    --enable-shared
+  make -j`nproc`
+  make install
+  popd
+fi
+
 if [ -n "$ZSTD_VERSION" ]; then
   mkdir -p ${BUILD}/zstd && pushd ${BUILD}/zstd
   cmake ${SOURCE}/zstd-${ZSTD_VERSION}/build/cmake \
@@ -271,17 +285,6 @@ if [ -n "$GCC_VERSION" ]; then
   popd
 fi
 
-if [ -n "$PYTHON_VERSION" ]; then
-  mkdir -p ${BUILD}/python && pushd ${BUILD}/python
-  ${SOURCE}/Python-${PYTHON_VERSION}/configure \
-    --host=${HOST}                       \
-    --disable-test-modules               \
-    --enable-shared
-  make -j`nproc`
-  make install
-  popd
-fi
-
 if [ -n "$GDB_VERSION" ]; then
   mkdir -p ${BUILD}/gdb && pushd ${BUILD}/gdb
   ${SOURCE}/gdb-${GDB_VERSION}/configure \
@@ -293,6 +296,7 @@ if [ -n "$GDB_VERSION" ]; then
     --with-mpfr                          \
     --with-expat                         \
     --with-python                        \
+    --enable-sim                         \
     --with-libgmp-prefix=${PREFIX}       \
     --with-libmpfr-prefix=${PREFIX}      \
     --with-libexpat-prefix=${PREFIX}     \
