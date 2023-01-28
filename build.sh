@@ -327,9 +327,15 @@ find ${FINAL}/lib -name '*.a'   -print0 | xargs -0 -n 8 -P `nproc` ${TARGET}-str
 7zr a -mx9 -mqs=on -mmt=on ${OUTPUT}/${NAME}.7z ${FINAL}
 
 if [[ -v GITHUB_WORKFLOW ]]; then
-  echo "::set-output name=GCC_VERSION::${GCC_VERSION}"
-  echo "::set-output name=GDB_VERSION::${GDB_VERSION}"
-  echo "::set-output name=MAKE_VERSION::${MAKE_VERSION}"
+  if [ -n "$GCC_VERSION" ]; then
+    echo "::set-output name=GCC_VERSION::${GCC_VERSION}"
+  fi
+  if [ -n "$GDB_VERSION" ]; then
+    echo "::set-output name=GDB_VERSION::${GDB_VERSION}"
+  fi
+  if [ -n "$MAKE_VERSION" ]; then
+    echo "::set-output name=MAKE_VERSION::${MAKE_VERSION}"
+  fi
   echo "::set-output name=OUTPUT_BINARY::${NAME}.7z"
   echo "::set-output name=RELEASE_NAME::gcc-v${GCC_VERSION}"
 fi
