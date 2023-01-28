@@ -11,7 +11,7 @@ EXPAT_VERSION=2.4.8
 BINUTILS_VERSION=2.39
 GCC_VERSION=12.2.0
 MAKE_VERSION=4.2.1
-PYTHON_VERSION=3.11.1
+PYTHON_VERSION=3.8.16
 GDB_VERSION=12.1
 
 # set HOST env variable to i686-w64-mingw32 if you want to get 32-bit windows binaries
