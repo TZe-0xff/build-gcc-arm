@@ -150,6 +150,7 @@ if [ -n "$PYTHON_VERSION" ]; then
   ${SOURCE}/Python-${PYTHON_VERSION}/configure \
     --host=${HOST}                       \
     --build=x86_64-pc-linux-gnu          \
+    --with-build-python=x86_64/python \
     --disable-test-modules               \
     --enable-shared
   make -j`nproc`
@@ -295,7 +296,7 @@ if [ -n "$GDB_VERSION" ]; then
     --disable-source-highlight           \
     --with-mpfr                          \
     --with-expat                         \
-    --with-python                        \
+    --with-python=../python/x86_64/python \
     --enable-sim                         \
     --with-libgmp-prefix=${PREFIX}       \
     --with-libmpfr-prefix=${PREFIX}      \
