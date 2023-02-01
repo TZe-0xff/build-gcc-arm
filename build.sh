@@ -240,21 +240,11 @@ ${SOURCE}/gdb-${GDB_VERSION}/configure \
   --with-libexpat-prefix=${PREFIX}     \
   --with-static-standard-libraries
 make -j`nproc` all-sim
-cp gdb/gdb.exe ${FINAL}/bin/
+#cp gdb/gdb.exe ${FINAL}/bin/
 find . -name run.exe -exec cp {} ${FINAL}/bin/ \;
 find . -name libsim.a -exec cp {} ${FINAL}/bin/ \;
 popd
 
-mkdir -p ${BUILD}/make && pushd ${BUILD}/make
-${SOURCE}/make-${MAKE_VERSION}/configure \
-  --prefix=${FINAL}                      \
-  --host=${HOST}                         \
-  --disable-nls                          \
-  --disable-rpath                        \
-  --enable-case-insensitive-file-system
-make -j`nproc`
-make install
-popd
 
 rm -rf ${FINAL}/bin/${TARGET}-ld.bfd.exe ${FINAL}/${TARGET}/bin/ld.bfd.exe
 rm -rf ${FINAL}/lib/bfd-plugins/libdep.dll.a
